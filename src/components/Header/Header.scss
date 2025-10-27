@@ -1,0 +1,112 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.header {
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+  padding: $spacing-lg $spacing-2xl;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+
+  @include tablet {
+    padding: $spacing-lg;
+  }
+
+  &-content {
+    @include flex-between;
+    max-width: 1800px;
+    margin: 0 auto;
+  }
+
+  &-left {
+    display: flex;
+    align-items: center;
+    gap: $spacing-xl;
+  }
+
+  &-right {
+    display: flex;
+    align-items: center;
+    gap: $spacing-xl;
+  }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  font-size: 1.5rem;
+  font-weight: 700;
+
+  &-icon {
+    font-size: 2rem;
+  }
+
+  &-text {
+    background: $primary-gradient;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    @include tablet {
+      font-size: 1rem;
+    }
+  }
+}
+
+.tagline {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  padding-left: $spacing-xl;
+  border-left: 2px solid var(--border);
+
+  @include tablet {
+    display: none;
+  }
+}
+
+.stats {
+  display: flex;
+  gap: $spacing-xl;
+  padding: $spacing-sm $spacing-lg;
+  background: var(--bg-primary);
+  border-radius: $radius-lg;
+  border: 1px solid var(--border);
+
+  @include tablet {
+    display: none;
+  }
+}
+
+.stat {
+  &-item {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+  }
+
+  &-label {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+
+  &-value {
+    font-weight: 600;
+    color: var(--primary);
+    font-size: 1rem;
+  }
+}
+
+.btn-secondary {
+  @include button-base;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+
+  &:hover:not(:disabled) {
+    background: var(--bg-tertiary);
+    border-color: var(--primary);
+  }
+}

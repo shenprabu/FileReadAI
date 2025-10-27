@@ -1,0 +1,57 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.file-upload {
+  width: 100%;
+}
+
+.upload-zone {
+  border: 3px dashed var(--border);
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all $transition-slow;
+  background: var(--bg-secondary);
+
+  &:hover {
+    border-color: var(--primary);
+    background: var(--bg-tertiary);
+    transform: translateY(-2px);
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    margin-bottom: $spacing-sm;
+    color: var(--text-primary);
+  }
+
+  p {
+    color: var(--text-secondary);
+    margin-bottom: $spacing-lg;
+  }
+}
+
+.upload-icon {
+  font-size: 4rem;
+  margin-bottom: $spacing-lg;
+  animation: float 3s ease-in-out infinite;
+}
+
+.upload-hint {
+  display: inline-block;
+  padding: $spacing-sm $spacing-lg;
+  background: var(--bg-primary);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px); 
+  }
+  50% { 
+    transform: translateY(-10px); 
+  }
+}

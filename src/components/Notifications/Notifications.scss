@@ -1,0 +1,81 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.notifications-container {
+  position: fixed;
+  top: 100px;
+  right: $spacing-2xl;
+  z-index: 1000;
+  @include flex-column;
+  gap: $spacing-lg;
+  max-width: 400px;
+
+  @include tablet {
+    right: $spacing-lg;
+    left: $spacing-lg;
+    max-width: none;
+  }
+}
+
+.notification {
+  display: flex;
+  align-items: center;
+  gap: $spacing-lg;
+  padding: $spacing-lg $spacing-xl;
+  border-radius: $radius-xl;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  animation: slideIn 0.3s ease-out;
+
+  &-icon {
+    font-size: 1.5rem;
+  }
+
+  &-message {
+    flex: 1;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+  }
+
+  &-close {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: $spacing-xs $spacing-sm;
+    font-size: 1.25rem;
+    transition: color $transition-normal;
+
+    &:hover {
+      color: var(--text-primary);
+    }
+  }
+
+  &-success {
+    border-left: 4px solid var(--success);
+  }
+
+  &-error {
+    border-left: 4px solid var(--error);
+  }
+
+  &-warning {
+    border-left: 4px solid var(--warning);
+  }
+
+  &-info {
+    border-left: 4px solid var(--info);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

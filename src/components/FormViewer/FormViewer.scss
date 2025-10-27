@@ -1,0 +1,252 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.form-viewer {
+  @include flex-column;
+  height: 100%;
+  min-height: 600px;
+}
+
+.viewer-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-lg $spacing-xl;
+  border-bottom: 1px solid var(--border);
+  min-height: 60px;
+
+  h2 {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    white-space: nowrap;
+    margin: 0;
+  }
+
+  @include tablet {
+    flex-wrap: wrap;
+    gap: $spacing-sm;
+    
+    h2 {
+      order: -2;
+      flex: 1 1 100%;
+    }
+  }
+
+  .filename-center {
+    @include text-truncate;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 40%;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    font-weight: 500;
+    pointer-events: none;
+  
+    @include tablet {
+      position: static;
+      transform: none;
+      max-width: 100%;
+      order: -1;
+      flex: 1 1 100%;
+      text-align: center;
+    }
+  }
+
+  .header-actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 1px;
+    flex-direction: column;
+
+    @include tablet {
+      margin-left: 0;
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}
+
+.viewer-content {
+  @include flex-center;
+  flex: 1;
+  overflow: auto;
+  padding: $spacing-xl 7rem;
+  background: var(--bg-primary);
+  @include custom-scrollbar;
+}
+
+.image-container {
+  @include flex-center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.image-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.form-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: $radius-lg;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  display: block;
+}
+
+.highlight-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  border-radius: $radius-lg;
+}
+
+.no-image {
+  text-align: center;
+  color: var(--text-muted);
+
+  &-icon {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: $spacing-lg;
+  }
+}
+
+.btn-extract-compact {
+  @include button-base;
+  padding: $spacing-sm $spacing-lg;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  background: $primary-gradient;
+  color: white;
+  box-shadow: $shadow-sm;
+  white-space: nowrap;
+
+  &:hover:not(:disabled) {
+    box-shadow: $shadow-md;
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    transform: none;
+  }
+}
+
+.model-select-inline {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.using-text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.model-dropdown-inline {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0 $spacing-sm 0 0;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239ca3af' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right center;
+  padding-right: 16px;
+  transition: color $transition-fast;
+
+  &:hover:not(:disabled) {
+    color: var(--text-primary);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  option {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    padding: $spacing-sm;
+  }
+}
+
+.spinner-small {
+  @include spinner(12px, 2px);
+}
+
+.pdf-navigation {
+  position: absolute;
+  bottom: $spacing-md;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  padding: $spacing-sm $spacing-lg;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-md;
+  opacity: 0;
+  transition: opacity $transition-fast;
+  z-index: 10;
+  
+  .nav-btn {
+    @include button-base;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all $transition-fast;
+
+    &:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.05);
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      background: rgba(255, 255, 255, 0.05);
+    }
+  }
+
+  .page-info {
+    font-size: 0.9rem;
+    color: white;
+    font-weight: 500;
+    min-width: 100px;
+    text-align: center;
+    user-select: none;
+  }
+}
+
+.image-wrapper:hover .pdf-navigation {
+  opacity: 1;
+}

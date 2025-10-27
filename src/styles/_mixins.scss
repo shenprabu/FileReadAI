@@ -1,0 +1,114 @@
+@use './variables' as *;
+
+// Flexbox mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// Button mixin
+@mixin button-base {
+  border: none;
+  border-radius: $radius-md;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all $transition-normal;
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// Card mixin
+@mixin card {
+  background: var(--bg-secondary);
+  border-radius: $radius-lg;
+  border: 1px solid $border-color;
+  padding: $spacing-xl;
+}
+
+// Hover lift effect
+@mixin hover-lift {
+  transition: transform $transition-normal, box-shadow $transition-normal;
+  
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+  }
+}
+
+// Text truncate
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Responsive breakpoints
+@mixin mobile {
+  @media (max-width: $breakpoint-mobile) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: $breakpoint-tablet) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $breakpoint-desktop) {
+    @content;
+  }
+}
+
+// Scrollbar styling
+@mixin custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $bg-primary;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+  }
+}
+
+// Spinner animation
+@mixin spinner($size: 16px, $border: 2px) {
+  width: $size;
+  height: $size;
+  border: $border solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+

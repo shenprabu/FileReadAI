@@ -1,0 +1,136 @@
+@use './styles/variables' as *;
+@use './styles/mixins' as *;
+
+:root {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  // CSS Variables for runtime theming
+  --primary: #{$primary-color};
+  --primary-dark: #4f46e5;
+  --secondary: #{$primary-hover};
+  --success: #{$success-color};
+  --warning: #{$warning-color};
+  --error: #{$error-color};
+  --info: #{$info-color};
+
+  --bg-primary: #{$bg-primary};
+  --bg-secondary: #{$bg-secondary};
+  --bg-tertiary: #{$bg-tertiary};
+  --text-primary: #{$text-primary};
+  --text-secondary: #{$text-secondary};
+  --text-muted: #{$text-muted};
+  --border: #{$border-color};
+
+  color-scheme: dark;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+// Global button styles
+button {
+  @include button-base;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--primary);
+  color: white;
+
+  &:hover:not(:disabled) {
+    background-color: var(--primary-dark);
+    transform: translateY(-1px);
+  }
+}
+
+// Global form element styles
+input, 
+textarea, 
+select {
+  padding: 0.6em 1em;
+  font-size: 1em;
+  border: 1px solid var(--border);
+  border-radius: $radius-lg;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  font-family: inherit;
+  transition: border-color $transition-slow;
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary);
+  }
+}
+
+// Custom Scrollbar
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+
+  &-track {
+    background: var(--bg-secondary);
+  }
+
+  &-thumb {
+    background: var(--bg-tertiary);
+    border-radius: 5px;
+
+    &:hover {
+      background: var(--primary);
+    }
+  }
+}
+
+// Global Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+// Animation utility classes
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+}

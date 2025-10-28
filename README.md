@@ -2,6 +2,9 @@
 
 AI-powered form field reader and extractor built with React and Zustand. Upload form images or PDFs and let AI automatically extract and structure the field data.
 
+<img width="1789" height="1035" alt="Screenshot 2025-10-28 at 10 29 55 AM" src="https://github.com/user-attachments/assets/cd56a70c-a733-4577-807c-72fd33296a9d" />
+
+
 ![Version](https://img.shields.io/badge/version-0.1.0-blue)
 ![React](https://img.shields.io/badge/React-18.3.1-61dafb)
 ![Zustand](https://img.shields.io/badge/Zustand-4.5.2-orange)
@@ -111,5 +114,5 @@ MIT License - free to use for any purpose!
 
 ---
 
-**Built with ❤️ using React, Zustand, and Cursor Agent :D**
+**Built with ❤️ using React, Zustand, and Cursor Agent 🤖**
 

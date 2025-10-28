@@ -9,6 +9,8 @@ class OpenAIService extends BaseService {
   constructor() {
     super('https://api.openai.com/v1');
     this.apiKey = this.getEnvVar('VITE_OPENAI_API_KEY');
+    this.model = this.getEnvVar('VITE_OPENAI_MODEL') || 'gpt-4o';
+    this.maxTokens = parseInt(this.getEnvVar('VITE_OPENAI_MAX_TOKENS') || '4096', 10);
   }
 
   /**
@@ -33,7 +35,7 @@ class OpenAIService extends BaseService {
           'Authorization': `Bearer ${this.apiKey}`
         },
         body: JSON.stringify({
-          model: 'gpt-4o',
+          model: this.model,
           messages: [
             {
               role: 'user',
@@ -51,7 +53,7 @@ class OpenAIService extends BaseService {
               ]
             }
           ],
-          max_tokens: 1500,
+          max_tokens: this.maxTokens,
           temperature: 0.2
         })
       });

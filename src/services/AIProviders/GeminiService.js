@@ -12,7 +12,8 @@ class GeminiService extends BaseService {
   constructor() {
     super('https://generativelanguage.googleapis.com/v1beta');
     this.apiKey = this.getEnvVar('VITE_GEMINI_API_KEY');
-    this.model = 'gemini-2.5-flash'; // Use flash for speed, can switch to 'gemini-1.5-pro' for better accuracy
+    this.model = this.getEnvVar('VITE_GEMINI_MODEL') || 'gemini-2.5-flash'; // Use flash for speed, can switch to 'gemini-1.5-pro' for better accuracy
+    this.maxOutputTokens = parseInt(this.getEnvVar('VITE_GEMINI_MAX_OUTPUT_TOKENS') || '8192', 10);
   }
 
   /**
@@ -100,7 +101,7 @@ class GeminiService extends BaseService {
               temperature: 0.2,
               topK: 40,
               topP: 0.95,
-              maxOutputTokens: 14096,
+              maxOutputTokens: this.maxOutputTokens,
             },
             safetySettings: [
               {

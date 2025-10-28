@@ -11,7 +11,8 @@ class ClaudeService extends BaseService {
   constructor() {
     super('https://api.anthropic.com/v1');
     this.apiKey = this.getEnvVar('VITE_CLAUDE_API_KEY');
-    this.model = 'claude-3-5-sonnet-20241022'; // Latest Claude 3.5 Sonnet with vision
+    this.model = this.getEnvVar('VITE_CLAUDE_MODEL') || 'claude-3-5-sonnet-20241022'; // Latest Claude 3.5 Sonnet with vision
+    this.maxTokens = parseInt(this.getEnvVar('VITE_CLAUDE_MAX_TOKENS') || '4096', 10);
   }
 
   /**
@@ -43,7 +44,7 @@ class ClaudeService extends BaseService {
         },
         body: JSON.stringify({
           model: this.model,
-          max_tokens: 4096,
+          max_tokens: this.maxTokens,
           temperature: 0.2,
           messages: [
             {

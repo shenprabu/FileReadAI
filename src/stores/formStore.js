@@ -193,16 +193,16 @@ const useFormStore = create(
         },
 
         /**
-         * Update a specific field value
+         * Update a specific field label and/or value
          * @param {string} fieldId - Field ID
-         * @param {string} value - New value
+         * @param {object} updates - Object with label and/or value to update
          */
-        updateField: (fieldId, value) => {
+        updateField: (fieldId, updates) => {
           set(state => ({
             extractedData: {
               ...state.extractedData,
               fields: state.extractedData.fields.map(field =>
-                field.id === fieldId ? { ...field, value, verified: true } : field
+                field.id === fieldId ? { ...field, ...updates, verified: true } : field
               )
             }
           }));

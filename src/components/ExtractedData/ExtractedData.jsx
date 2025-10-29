@@ -19,6 +19,7 @@ const ExtractedData = () => {
   const showError = useUIStore((state) => state.showError);
 
   const [editingField, setEditingField] = useState(null);
+  const [editLabel, setEditLabel] = useState('');
   const [editValue, setEditValue] = useState('');
   const [selectedPage, setSelectedPage] = useState('all');
   const [newFieldId, setNewFieldId] = useState(null);
@@ -32,17 +33,23 @@ const ExtractedData = () => {
 
   const handleEdit = (field) => {
     setEditingField(field.id);
+    setEditLabel(field.label);
     setEditValue(field.value);
   };
 
   const handleSave = (fieldId) => {
-    updateField(fieldId, editValue);
+    if (!editLabel.trim()) {
+      showError('Field name is required');
+      return;
+    }
+    updateField(fieldId, { label: editLabel, value: editValue });
     setEditingField(null);
     showSuccess('Field updated successfully');
   };
 
   const handleCancel = () => {
     setEditingField(null);
+    setEditLabel('');
     setEditValue('');
   };
 
@@ -249,8 +256,16 @@ const ExtractedData = () => {
                   <div className="field-edit">
                     <input
                       type="text"
+                      value={editLabel}
+                      onChange={(e) => setEditLabel(e.target.value)}
+                      placeholder="Field name"
+                      className="field-input"
+                    />
+                    <input
+                      type="text"
                       value={editValue}
                       onChange={(e) => setEditValue(e.target.value)}
+                      placeholder="Field value"
                       autoFocus
                       className="field-input"
                     />

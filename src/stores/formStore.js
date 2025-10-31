@@ -147,6 +147,15 @@ const useFormStore = create(
                 }));
                 
                 allFields = [...allFields, ...fieldsWithPage];
+                
+                // Update UI with current results after each page
+                set(state => ({
+                  extractedData: {
+                    formTitle: formTitle || state.extractedData?.formTitle || '',
+                    fields: allFields,
+                    extractedAt: new Date().toISOString()
+                  }
+                }));
               }
             } else {
               // Single page or regular image

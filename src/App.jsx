@@ -10,6 +10,7 @@ import { useFormStore } from './stores';
 function App() {
   const currentForm = useFormStore((state) => state.currentForm);
   const extractedData = useFormStore((state) => state.extractedData);
+  const processing = useFormStore((state) => state.processing);
 
   return (
     <div className="app">
@@ -46,7 +47,7 @@ function App() {
               <FormViewer />
             </div>
             <div className="data-section">
-              {extractedData ? (
+              {extractedData || processing ? (
                 <ExtractedData />
               ) : (
                 <div className="extraction-prompt">

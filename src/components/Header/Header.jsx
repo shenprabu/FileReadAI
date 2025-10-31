@@ -5,6 +5,7 @@ import './Header.scss';
 const Header = () => {
   const stats = useFormStore((state) => state.getStats());
   const clearForm = useFormStore((state) => state.clearForm);
+  const processing = useFormStore((state) => state.processing);
 
   return (
     <header className="header">
@@ -31,11 +32,9 @@ const Header = () => {
             </div>
           )}
           
-          {stats.hasCurrentForm && (
-            <button onClick={clearForm} className="btn-secondary">
-              New Form
-            </button>
-          )}
+          <button onClick={clearForm} className="btn-secondary" disabled={processing}>
+            New Form
+          </button>
         </div>
       </div>
     </header>

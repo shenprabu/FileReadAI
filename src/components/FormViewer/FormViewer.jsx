@@ -167,40 +167,53 @@ const FormViewer = () => {
           <div className="filename-center">{currentForm.name}</div>
         )}
         
-        {currentForm && !extractedData && (
+        {currentForm && (
           <div className="header-actions">
-            <button
-              onClick={handleExtract}
-              disabled={processing}
-              className="btn-extract-compact"
-            >
-              {processing ? (
-                <>
-                  <span className="spinner-small"></span>
-                  {processingPage && totalPages > 1 
-                    ? `Processing page ${processingPage}/${totalPages}...` 
-                    : 'Processing...'}
-                </>
-              ) : (
-                'Extract Fields'
-              )}
-            </button>
-            
-            <div className="model-select-inline">
-              <span className="using-text">using</span>
-              <select
-                value={selectedProvider}
-                onChange={handleProviderChange}
-                disabled={processing}
-                className="model-dropdown-inline"
+            {!extractedData || processing ? (
+              <>
+                <button
+                  onClick={handleExtract}
+                  disabled={processing}
+                  className="btn-extract-compact"
+                >
+                  {processing ? (
+                    <>
+                      <span className="spinner-small"></span>
+                      {processingPage && totalPages > 1 
+                        ? `Processing page ${processingPage}/${totalPages}...` 
+                        : 'Processing...'}
+                    </>
+                  ) : (
+                    'Extract Fields'
+                  )}
+                </button>
+                
+                <div className="model-select-inline">
+                  <span className="using-text">using</span>
+                  <select
+                    value={selectedProvider}
+                    onChange={handleProviderChange}
+                    disabled={processing}
+                    className="model-dropdown-inline"
+                  >
+                    {providers.map((provider) => (
+                      <option key={provider.key} value={provider.key}>
+                        {provider.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </>
+            ) : (
+              <button
+                onClick={handleExtract}
+                className="btn-retry"
+                title="Re-extract fields"
               >
-                {providers.map((provider) => (
-                  <option key={provider.key} value={provider.key}>
-                    {provider.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+                <span className="retry-icon">🔄</span>
+                Retry
+              </button>
+            )}
           </div>
         )}
       </div>

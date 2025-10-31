@@ -136,9 +136,40 @@
     box-shadow: $shadow-md;
     transform: translateY(-1px);
   }
+}
 
-  &:disabled {
-    transform: none;
+.btn-retry {
+  @include button-base;
+  padding: $spacing-sm $spacing-lg;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  box-shadow: $shadow-sm;
+  white-space: nowrap;
+  transition: all $transition-normal;
+
+  .retry-icon {
+    font-size: 1rem;
+    transition: transform $transition-normal;
+  }
+
+  &:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--primary);
+    box-shadow: $shadow-md;
+    transform: translateY(-1px);
+
+    .retry-icon {
+      transform: rotate(180deg);
+    }
+  }
+
+  &:active {
+    transform: translateY(0);
   }
 }
 

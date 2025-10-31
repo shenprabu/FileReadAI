@@ -14,6 +14,8 @@ const ExtractedData = () => {
   const currentPage = useFormStore((state) => state.currentPage);
   const goToPage = useFormStore((state) => state.goToPage);
   const highlightField = useFormStore((state) => state.highlightField);
+  const processing = useFormStore((state) => state.processing);
+  const processingPage = useFormStore((state) => state.processingPage);
   const showSuccess = useUIStore((state) => state.showSuccess);
   const showInfo = useUIStore((state) => state.showInfo);
   const showError = useUIStore((state) => state.showError);
@@ -140,9 +142,9 @@ const ExtractedData = () => {
     }
   };
 
-  if (!extractedData) return null;
+  if (!extractedData && !processing) return null;
 
-  const { fields = [], formTitle } = extractedData;
+  const { fields = [], formTitle } = extractedData || {};
 
   // Group fields by page
   const fieldsByPage = fields.reduce((acc, field) => {
@@ -161,6 +163,11 @@ const ExtractedData = () => {
   const displayedFields = selectedPage === 'all' 
     ? fields 
     : fields.filter(f => (f.page || 1) === Number(selectedPage));
+
+  // Calculate progress percentage
+  const progressPercent = processingPage && totalPages 
+    ? (processingPage / totalPages) * 100 
+    : 0;
 
   return (
     <div className="extracted-data">
@@ -181,6 +188,27 @@ const ExtractedData = () => {
           </button>
         </div>
       </div>
+
+      {processing && (
+        <div className="progress-container">
+          <div className="progress-info">
+            <span className="progress-icon">⏳</span>
+            <span className="progress-text">
+              {processingPage && totalPages > 1 
+                ? `Extracting fields from page ${processingPage} of ${totalPages}...`
+                : 'Extracting fields...'}
+            </span>
+          </div>
+          {processingPage && totalPages > 1 && (
+            <div className="progress-bar">
+              <div 
+                className="progress-fill" 
+                style={{ width: `${progressPercent}%` }}
+              />
+            </div>
+          )}
+        </div>
+      )}
 
 
       {showMultiplePages && (

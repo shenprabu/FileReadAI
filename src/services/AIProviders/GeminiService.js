@@ -127,6 +127,9 @@ class GeminiService extends BaseService {
 
       const data = await response.json();
       console.log('data', data);
+      if(!data.candidates || !data.candidates[0] || !data.candidates[0].content || !data.candidates[0].content.parts) {
+        throw new Error('Unexpected response from Gemini API');
+      }
       if(data.candidates[0].finishReason !== 'STOP') {
         // retry for MAX_TOKENS
         throw new Error(`Gemini API request finished with ${data.candidates[0].finishReason}`);
@@ -136,7 +139,6 @@ class GeminiService extends BaseService {
         .map((p) => p.text || "").join("")
         .replace(/```json/g, "").replace(/```/g, "").replace(/\\"/g, "'").replace(/\\'/g, "'").replace(/\\\\/g, '\\')
         .trim();
-      console.log('content', content);
       
       if (!content) {
         throw new Error('Empty response from Gemini API');
